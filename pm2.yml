@@ -1,0 +1,25 @@
+# the file is pm2 config file.
+# see: [http://pm2.keymetrics.io/docs/usage/application-declaration/#process-file]
+apps:
+  - script   : './server.js'
+    name     : 'GoodsServer'
+    instances: 2
+    exec_mode: 'cluster'
+    max_memory_restart : '500M'
+    max_restarts : 10
+    watch : false
+    ignore_watch :   #// 从监控目录中排除
+      - "node_modules"
+      - "log4j_err.log"
+      - "logs"
+
+    # log_date_format : 'YYYY-MM-DD HH:mm:ss'
+    error_file : './logs/err.log'
+    out_file : './logs/out.log'
+    pid_file : './logs/pm-id.pid'
+    merge_logs : false
+
+
+
+
+

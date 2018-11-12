@@ -1,0 +1,45 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: pay-server
+  labels:
+    server: payServer
+spec:
+  selector:
+    matchLabels:
+      server: payServer
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        server: payServer
+    spec:
+      containers:
+      - name: pay-server
+        image: docker-registry.icarcloud.net:8088/laikoo/server/dockerImagePathAndVersion
+        ports:
+        - containerPort: 6009
+        env:
+        - name: CONFIGSERVERURL
+          value: http://apollo-config-server:8080/
+        
+        
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-server
+  labels:
+    server: payServer
+spec:
+  selector:
+    server: payServer
+  type: NodePort #ClusterIP
+  # clusterIP: 10.106.100.2
+  ports:
+  - name: http
+    protocol: TCP
+    nodePort: 31008
+    port: 6009
+    targetPort: 6009

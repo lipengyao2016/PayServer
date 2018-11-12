@@ -1,0 +1,120 @@
+employeeServer(员工管理)
+
+1.员工  employees
+
+2.岗位   posts
+
+
+业务接口
+
+  1.新增岗位 
+  request:{
+        name:'工程师oo',
+        remark:'345dfsf',
+        ownerHref:'http://localhost:5000/api/v1.0.0/businessFormats/ESQmj0c7OkWXYclyPxhU7w',
+        permissions:[
+            {
+                objectHref:'http://localhost:6001/api/v1.0.0/menus/F09LKXBoTA5whbTl3JLZUg',
+                objectType:'menu',
+            },
+        ],
+  }
+  先创建角色，然后创建岗位。(当有permissions才创建角色)
+  
+  2.更新岗位
+   先更新岗位，然后更新角色。
+    request:{
+        name:'工程师oo',
+        remark:'345dfsf',
+        permissions:[
+            {
+                objectHref:'http://localhost:6001/api/v1.0.0/menus/F09LKXBoTA5whbTl3JLZUg',
+                objectType:'menu',
+            },
+        ],
+  }
+  
+   
+  3.删除岗位
+   先删除岗位，后删除角色。 
+  
+  4.新增员工,如果存在账号信息时，同时添加用户，
+    request:{
+        name:'王店长yy',
+        age:30,
+        sex:1,
+        postHref:'',
+        account:
+            {
+                 "name": "lijq",          // 账户名
+                 "password": new Buffer("888888").toString('base64'),
+            },
+       }
+       4.1. 为员工添加用户
+       				(1).创建员工
+       				(1).创建员工对应的用户
+       				(2).如果选择了岗位，为用户更新员工关联岗位所包含的角色。
+       4.2. 为员工用户绑定账号
+			       (1).创建账号，如果传了账号，密码。
+			       (2).首先判断此账号在此店铺下是否已绑定用户，如果已绑，则首先解绑。
+			       (3).为用户绑定账号。
+       
+      
+    5.更新员工,如果存在账号信息时，同时更新账号信息，
+    request:
+    {
+        name:'王店长yy',
+        age:30,
+        sex:1,
+        postHref:'',
+        account:
+            {
+                 "name": "lijq",          // 账户名
+                 "password": new Buffer("888888").toString('base64'),
+            },
+        ,
+    }
+    6.删除员工时，删除用户，以及同时删除员工对应的账号。
+  
+  
+    7.为员工添加操作员账号,或者对一个账号修改员工
+   request:{
+        number:'工程师oo',
+        password:'345dfsf',
+        accountHref:'',    //账号链接，或者账号，密码二选一。
+        employeeHref:'',
+  }
+                                       
+  
+
+  
+  
+  收银结算
+  
+  request:{
+        objects:[{
+          objectUUID,
+          objectName,
+          price,
+          discountPrice,
+          quatity,
+        }],
+        
+        buyer,
+        seller,
+        amount,
+        preferentialAmount,
+        eraseAmount,
+        receiveableAmount,
+        actualReceivedAmount,
+        
+        payInfo:[
+         {
+            payModeUUID,
+            payModeName,
+            payAmount,
+         }
+        ]
+        
+        
+  }
